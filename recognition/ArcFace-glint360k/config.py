@@ -190,7 +190,7 @@ default.network = 'r100'
 default.pretrained = ''
 default.pretrained_epoch = 1
 # default dataset
-default.dataset = 'emore'
+default.dataset = 'glint360k'
 default.loss = 'arcface'
 default.frequent = 20
 default.verbose = 2000
@@ -202,7 +202,7 @@ default.wd = 0.0005
 default.mom = 0.9
 default.per_batch_size = 128
 default.ckpt = 3
-default.lr_steps = '100000,160000,220000'
+default.lr_steps = '200000,280000,360000'
 default.models_root = './models'
 
 
