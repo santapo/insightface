@@ -25,7 +25,7 @@ config.data_rand_mirror = True
 config.data_cutoff = False
 config.data_color = 0
 config.data_images_filter = 0
-config.count_flops = True
+config.count_flops = False
 config.memonger = False  #not work now
 
 # network settings

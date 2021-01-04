@@ -1030,9 +1030,8 @@ def resnet(units, num_stages, filter_list, num_classes, bottle_neck):
     num_unit = len(units)
     assert (num_unit == num_stages)
     data = mx.sym.Variable(name='data')
-
     data = mx.sym.SpatialTransformer(data=data, loc=get_loc(data), target_shape=(112, 112),
-                                     transform_type="affine", sampler_type="bilinear")
+                                  transform_type="affine", sampler_type="bilinear")
 
     if version_input == 0:
         #data = mx.sym.BatchNorm(data=data, fix_gamma=True, eps=2e-5, momentum=bn_mom, name='bn_data')
