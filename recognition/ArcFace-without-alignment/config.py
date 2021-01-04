@@ -120,7 +120,7 @@ dataset.emore.val_targets = ['lfw', 'cfp_fp', 'agedb_30']
 
 dataset.glint360k = edict()
 dataset.glint360k.dataset = 'glint360k'
-dataset.glint360k.dataset_path = '../datasets/glint360k'
+dataset.glint360k.dataset_path = '/mnt/hdd/home/linus/genos/data_face_recognition'
 dataset.glint360k.num_classes = 360232
 dataset.glint360k.image_shape = (112, 112, 3)
 dataset.glint360k.val_targets = ['agedb_30', 'lfw', 'cfp_fp']
