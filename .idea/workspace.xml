@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d8b7df2a-ccca-4d60-9687-c55255c5f3fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/recognition/ArcFace-without-alignment/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/recognition/ArcFace-without-alignment/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recognition/ArcFace-without-alignment/sample_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/recognition/ArcFace-without-alignment/sample_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recognition/symbol/fresnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/recognition/symbol/fresnet2.py" afterDir="false" />
-    </list>
+    <list default="true" id="d8b7df2a-ccca-4d60-9687-c55255c5f3fd" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
