@@ -25,7 +25,7 @@ config.data_rand_mirror = True
 config.data_cutoff = False
 config.data_color = 0
 config.data_images_filter = 0
-config.count_flops = True
+config.count_flops = False
 config.memonger = False  #not work now
 
 # network settings
@@ -108,6 +108,7 @@ network.vargfacenet.net_multiplier = 1.25
 network.vargfacenet.emb_size = 512
 network.vargfacenet.net_output = 'J'
 
+
 # dataset settings
 dataset = edict()
 
@@ -118,12 +119,19 @@ dataset.emore.num_classes = 85742
 dataset.emore.image_shape = (112, 112, 3)
 dataset.emore.val_targets = ['lfw', 'cfp_fp', 'agedb_30']
 
-dataset.glint = edict()
-dataset.glint.dataset = 'glint360k'
-dataset.glint.dataset_path = '../datasets/glint360k'
-dataset.glint.num_classes = 360232
-dataset.glint.image_shape = (112, 112, 3)
-dataset.glint.val_targets = ['agedb_30', 'lfw', 'cfp_fp']
+dataset.glint360k = edict()
+dataset.glint360k.dataset = 'glint360k'
+dataset.glint360k.dataset_path = '/mnt/hdd/home/linus/genos/data_face_recognition'
+dataset.glint360k.num_classes = 360232
+dataset.glint360k.image_shape = (112, 112, 3)
+dataset.glint360k.val_targets = ['agedb_30', 'lfw', 'cfp_fp']
+
+dataset.glint75 = edict()
+dataset.glint75.dataset = 'glint-75'
+dataset.glint75.dataset_path = '/mnt/hdd/spaces/santapo/data-analysis/glint-75'
+dataset.glint75.num_classes = 333917
+dataset.glint75.image_shape = (112, 112, 3)
+dataset.glint75.val_targets = ['agedb_30', 'lfw', 'cfp_fp']
 
 dataset.retina = edict()
 dataset.retina.dataset = 'retina'
@@ -186,11 +194,11 @@ loss.atriplet.lr = 0.05
 default = edict()
 
 # default network
-default.network = 'r100'
+default.network = 'vargfacenet'
 default.pretrained = ''
 default.pretrained_epoch = 1
 # default dataset
-default.dataset = 'glint360k'
+default.dataset = 'glint-75'
 default.loss = 'arcface'
 default.frequent = 20
 default.verbose = 2000

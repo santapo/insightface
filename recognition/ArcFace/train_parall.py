@@ -25,7 +25,7 @@ from config import config, default, generate_config
 import verification
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'symbol'))
 import fresnet
-import fmobilefacenet
+import fmobi    lefacenet
 import fmobilenet
 import fmnasnet
 import fdensenet

@@ -35,23 +35,6 @@ import symbol_utils
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from config import config
 
-def get_loc(data, attr={'lr_mult': '0.01'}):
-    """
-    the localisation network in lenet-stn, it will increase acc about more than 1%,
-    when num-epoch >=15
-    """
-    loc = mx.sym.Convolution(data=data, num_filter=8, kernel=(7, 7), stride=(1, 1))
-    loc = mx.sym.Activation(data=loc, act_type='relu')
-    loc = mx.sym.Pooling(data=loc, kernel=(2, 2), stride=(2, 2), pool_type='max')
-    loc = mx.sym.Convolution(data=loc, num_filter=10, kernel=(5, 5), stride=(1, 1))
-    loc = mx.sym.Activation(data=loc, act_type='relu')
-    loc = mx.sym.Pooling(data=loc, kernel=(2, 2), stride=(2, 2), pool_type='max')
-
-    loc = mx.sym.FullyConnected(data=loc, num_hidden=32, name="stn_loc_fc1", attr=attr)
-    loc = mx.sym.Activation(data=loc, act_type='relu')
-    #       loc = sym.Flatten(data=loc)
-    loc = mx.sym.FullyConnected(data=loc, num_hidden=6, name="stn_loc_fc2", attr=attr)
-    return loc
 
 def Act(data, act_type, name):
     if act_type == 'prelu':
@@ -552,8 +535,6 @@ def get_symbol():
     with_dilate_list = [False, False, False]
 
     data = mx.sym.Variable(name='data')
-    data = mx.sym.SpatialTransformer(data=data, loc=get_loc(data), target_shape=(112, 112),
-                                  transform_type="affine", sampler_type="bilinear")
     data = mx.sym.identity(data=data, name='id')
     data = data - 127.5
     data = data * 0.0078125

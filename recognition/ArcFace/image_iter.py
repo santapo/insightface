@@ -12,6 +12,7 @@ import sklearn
 import datetime
 import numpy as np
 import cv2
+import imgaug.augmenters as iaa
 
 import mxnet as mx
 from mxnet import ndarray as nd
@@ -26,12 +27,14 @@ class FaceImageIter(io.DataIter):
                  batch_size,
                  data_shape,
                  path_imgrec=None,
-                 shuffle=False,
+                 shuffle=True,
                  aug_list=None,
+                 blur=True,
+                 maxpooling=True,
                  mean=None,
-                 rand_mirror=False,
+                 rand_mirror=True,
                  cutoff=0,
-                 color_jittering=0,
+                 color_jittering=1,
                  images_filter=0,
                  data_name='data',
                  label_name='softmax_label',
@@ -86,6 +89,8 @@ class FaceImageIter(io.DataIter):
         self.shuffle = shuffle
         self.image_size = '%d,%d' % (data_shape[1], data_shape[2])
         self.rand_mirror = rand_mirror
+        self.blur = blur
+        self.maxpooling = maxpooling
         print('rand_mirror', rand_mirror)
         self.cutoff = cutoff
         self.color_jittering = color_jittering
@@ -209,6 +214,32 @@ class FaceImageIter(io.DataIter):
                     _rd = random.randint(0, 1)
                     if _rd == 1:
                         _data = mx.ndarray.flip(data=_data, axis=1)
+                if self.blur:
+                    aug_blur = iaa.Sequential([
+                        iaa.OneOf([
+                            iaa.GaussianBlur(sigma=(0.5, 2.5)),
+                            iaa.AverageBlur(k=(2, 5)),
+                            iaa.MotionBlur(k=(5, 7)),
+                            iaa.BilateralBlur(d=(3, 4), sigma_color=(10, 250), sigma_space=(10, 250)),
+                            iaa.imgcorruptlike.DefocusBlur(severity=1),
+                            iaa.imgcorruptlike.GlassBlur(severity=1),
+                            iaa.imgcorruptlike.Pixelate(severity=(1, 3)),
+                            iaa.Pepper(0.01),
+                            iaa.AdditiveGaussianNoise(scale=(0, 0.1*255), per_channel=True),
+                            iaa.imgcorruptlike.SpeckleNoise(severity=1),
+                            iaa.imgcorruptlike.JpegCompression(severity=(1, 4)),
+                            ])
+                        ])
+                    _rd = random.randint(0, 1)
+                    if _rd == 1:
+                        _data = aug_blur(images=_data)
+
+                if self.maxpooling:
+                    maxpool_aug = iaa.MaxPooling(2)
+                    _rd = random.randint(0, 1)
+                    if _rd == 1:
+                        _data = maxpool_aug(images=_data)
+
                 if self.color_jittering > 0:
                     if self.color_jittering > 1:
                         _rd = random.randint(0, 1)
