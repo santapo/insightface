@@ -179,7 +179,7 @@ loss.triplet.triplet_alpha = 0.3
 loss.triplet.triplet_bag_size = 7200
 loss.triplet.triplet_max_ap = 0.0
 loss.triplet.per_batch_size = 60
-loss.triplet.lr = 0.05
+loss.triplet.lr = 0.01
 
 loss.atriplet = edict()
 loss.atriplet.loss_name = 'atriplet'

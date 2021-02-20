@@ -30,7 +30,7 @@ def get_model(ctx, image_size, prefix, epoch, layer):
 
 
 class FaceModel:
-    def __init__(self, ctx_id, model_prefix, model_epoch, use_large_detector=False):
+    def __init__(self, ctx_id, model_prefix, model_epoch, use_large_detector=True):
         if use_large_detector:
             self.detector = insightface.model_zoo.get_model('retinaface_r50_v1')
         else:
@@ -45,7 +45,7 @@ class FaceModel:
         self.image_size = image_size
 
     def get_input(self, face_img):
-        bbox, pts5 = self.detector.detect(face_img, threshold=0.8)
+        bbox, pts5 = self.detector.detect(face_img, threshold=0.5)
         if bbox.shape[0]==0:
             return None
         bbox = bbox[0, 0:4]
@@ -64,4 +64,3 @@ class FaceModel:
         norm = np.sqrt(np.sum(emb*emb)+0.00001)
         emb /= norm
         return emb
-
