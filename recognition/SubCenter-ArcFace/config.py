@@ -122,6 +122,13 @@ dataset.emore.num_classes = 85742
 dataset.emore.image_shape = (112, 112, 3)
 dataset.emore.val_targets = ['lfw', 'cfp_fp', 'agedb_30']
 
+dataset.glint360k = edict()
+dataset.glint360k.dataset = 'glint360k'
+dataset.glint360k.dataset_path = '/mnt/hdd/home/linus/genos/data_face_recognition'
+dataset.glint360k.num_classes = 360232
+dataset.glint360k.image_shape = (112, 112, 3)
+dataset.glint360k.val_targets = ['agedb_30', 'lfw', 'cfp_fp']
+
 dataset.retina = edict()
 dataset.retina.dataset = 'retina'
 dataset.retina.dataset_path = '../datasets/ms1m-retinaface-t1'
@@ -197,7 +204,7 @@ default.end_epoch = 10000
 default.lr = 0.1
 default.wd = 0.0005
 default.mom = 0.9
-default.per_batch_size = 128
+default.per_batch_size = 16
 default.ckpt = 3
 default.lr_steps = '100000,160000,220000'
 default.models_root = './models'

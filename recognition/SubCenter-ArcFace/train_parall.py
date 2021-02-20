@@ -16,6 +16,7 @@ from mxnet import ndarray as nd
 import argparse
 import mxnet.optimizer as optimizer
 from config import config, default, generate_config
+from metric import *
 import verification
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'symbol'))
 import fresnet
@@ -283,6 +284,12 @@ def train_net(args):
         images_filter=config.data_images_filter,
     )
 
+    metric1 = AccMetric()
+    eval_metrics = [mx.metric.create(metric1)]
+    if config.ce_loss:
+        metric2 = LossValueMetric()
+        eval_metrics.append(mx.metric.create(metric2))
+
     if config.net_name == 'fresnet' or config.net_name == 'fmobilefacenet':
         initializer = mx.init.Xavier(rnd_type='gaussian',
                                      factor_type="out",
@@ -396,7 +403,7 @@ def train_net(args):
         begin_epoch=begin_epoch,
         num_epoch=999999,
         eval_data=val_dataiter,
-        #eval_metric        = eval_metrics,
+        eval_metric = eval_metrics,
         kvstore=args.kvstore,
         optimizer=opt,
         #optimizer_params   = optimizer_params,
